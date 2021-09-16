@@ -1,6 +1,12 @@
 // ====================================== NOTE : INTERESTING TIMES =========================================== //
 /*
  * The following were accomplished:
+ * - Reconciled two methods - times(), by first inlining the methods they called and then replacing constants
+ *      with variables
+ * - Wrote a toString() for debugging purpose
+ * - Tried a change and let the tests tell us whether it worked
+ * - Sometimes we have to back out from an experiment to write another test. Making test works will make the
+ *      experiment works.
  */
 
 package com.example.chap_10;

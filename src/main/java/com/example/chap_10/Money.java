@@ -30,9 +30,10 @@ public class Money {
                 && currency().equals(money.currency());
     }
 
-    public Money times(int amount) {
-        return null;
-    };
+    // inline factory method
+    public Money times(int multiplier) {
+        return new Money(amount * multiplier, currency);
+    }
 
     public static Money dollar(int amount) {
         return new Dollar(amount, "USD");

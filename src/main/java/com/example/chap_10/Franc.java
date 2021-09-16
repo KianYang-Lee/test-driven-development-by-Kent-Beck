@@ -5,9 +5,5 @@ public class Franc extends Money {
         super(amount, currency);
     }
 
-    // inline factory method
-    public Money times(int multiplier) {
-        return new Money(amount * multiplier, currency);
-    }
-
+    // times() method pushed up to superclass
 }
