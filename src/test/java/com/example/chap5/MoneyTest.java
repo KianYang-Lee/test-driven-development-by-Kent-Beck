@@ -14,6 +14,7 @@
 package com.example.chap5;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 //// ========================================= INITIAL STATE ======================================= //
@@ -34,7 +35,7 @@ import org.junit.Test;
 //}
 
 // ========================================= FINAL STATE ======================================= //
-
+@Ignore
 public class MoneyTest {
     @Test
     public void testMultiplication() {
