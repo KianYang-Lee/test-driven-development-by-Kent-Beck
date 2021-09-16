@@ -1,4 +1,4 @@
-package com.example.chap3;
+package com.example.chap4;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -22,28 +22,21 @@ import org.junit.Test;
 //        Assert.assertTrue(new Dollar(5).equals(new Dollar(5)));
 //        Assert.assertFalse(new Dollar(5).equals(new Dollar(6)));
 //    }
-//
-//    // FORCE PASS
-//    @Override
-//    public boolean equals(Object obj) {
-//        return true;
-//    }
 //}
 
 // ========================================= FINAL STATE ======================================= //
-
 @Ignore
 public class MoneyTest {
     @Test
     public void testMultiplication() {
         Dollar five = new Dollar(5);
-        Dollar product = five.times(2);
-        Assert.assertEquals(10, product.amount);
-        product = five.times(3);
-        Assert.assertEquals(15, product.amount);
+        // Compare Dollar to Dollar (object to object)
+        // Inline product variable
+        // Now the test speaks more clearly as if it is an assertion of truth, not a sequence of operations
+        Assert.assertEquals(new Dollar(10), five.times(2));
+        Assert.assertEquals(new Dollar(15), five.times(3));
     }
 
-    // IDEAL
     @Test
     public void testEquality() {
         Assert.assertTrue(new Dollar(5).equals(new Dollar(5)));
