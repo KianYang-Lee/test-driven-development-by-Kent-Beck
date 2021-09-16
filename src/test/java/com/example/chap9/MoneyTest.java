@@ -1,15 +1,16 @@
-// ====================================== NOTE : MAKIN' OBJECTS =========================================== //
+// ====================================== NOTE : TIMES WE'RE LIVIN' IN =========================================== //
 /*
- * We are one step closer to eliminate subclasses by having fewer references to the subclasses directly
+ * Only entertain a brief interruption, but only a brief one, and never interrupt an interruption.
  *
- * Acoomplished the following:
- * - Took a step of eliminating duplication by reconciling the signatures of two variants of the same method -- times()
- * - Moved at least a declaration of method to common superclass
- * - Decoupled test code from existence of concrete subclasses by introducing factory methods
- * - Noticed that when subclass disappear, some test cases are now redundant
+ * TDD is a steering process. There is no right step size on the changes to your code and tests, now and forever.
+ *
+ * The following were accomplished:
+ * - Reconciled the two constructors by moving the variation to the caller (the factory method)
+ * - Repeated an analogous refactoring in one big step
+ * - Pushed up identical constructors
  */
 
-package com.example.chap8;
+package com.example.chap9;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -19,9 +20,6 @@ import org.junit.Test;
 public class MoneyTest {
     @Test
     public void testMultiplication() {
-        // Instead of referencing to the subclass directly, refer to the superclass instead
-        // Also changing the class declaration type altogether
-        // Let's use factory method everywhere in the tests
         Money five = Money.dollar(5);
         Assert.assertEquals(Money.dollar(10), five.times(2));
         Assert.assertEquals(Money.dollar(15), five.times(3));
@@ -43,4 +41,9 @@ public class MoneyTest {
         Assert.assertEquals(Money.franc(15), five.times(3));
     }
 
+    @Test
+    public void testCurrency() {
+        Assert.assertEquals("USD", Money.dollar(1).currency());
+        Assert.assertEquals("CHF", Money.franc(1).currency());
+    }
 }
