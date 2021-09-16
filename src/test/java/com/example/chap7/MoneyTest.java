@@ -41,6 +41,7 @@ import org.junit.Test;
 //}
 
 // ========================================= FINAL STATE ======================================= //
+@Ignore
 public class MoneyTest {
     @Test
     public void testMultiplication() {
