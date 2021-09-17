@@ -1,12 +1,14 @@
-// ====================================== NOTE : MIXED CURRENCIES =========================================== //
+// ====================================== NOTE : ABSTRACTION, FINALLY =========================================== //
 /*
+ * The test is often same or longer than code for TDD.
+ *
  * The following were accomplished:
- * - Wrote the test we wanted, then backed off to make the test achievable in one step
- * - Generalized (using more abstract declaration) from the leaves back to the root (test case)
- * - Followed the compiler when change is made (Expression fiveBucks), that caused ripples of changes
+ * - Wrote a test with future readers (including our future self) in mind
+ * - Suggested an experiment comparing TDD with current programming style
+ * - Tried a brief experiment and then discard the test case when it did not work out
  */
 
-package com.example.chap_15;
+package com.example.chap_16;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -87,8 +89,6 @@ public class MoneyTest {
         Assert.assertEquals(1, new Bank().rate("USD", "USD"));
     }
 
-
-    // Final version
     @Test
     public void testMixedAddition() {
         Expression fiveBucks = Money.dollar(5);
@@ -98,4 +98,38 @@ public class MoneyTest {
         Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
         Assert.assertEquals(Money.dollar(10), result);
     }
+
+    // Test for Sum.plus()
+    // We could also implement Sum by adding fiveBucks and tenFrancs directly, but using Sum(fiveBucks, tenFrancs)
+    //  communicates the program more clearly (more readable) - think of our readers
+    @Test
+    public void testSumPlusMoney() {
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Expression sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
+        Money result = bank.reduce(sum, "USD");
+        Assert.assertEquals(Money.dollar(15), result);
+    }
+
+    // Since Sum.times() works, declaring Expression.times() is also a simple step. Test as below:
+    public void testSumTimes() {
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Expression sum = new Sum(fiveBucks, tenFrancs).times(2);
+        Money result = bank.reduce(sum, "USD");
+        Assert.assertEquals(Money.dollar(20), result);
+    }
+
+    // Experiment with returning a Money when adding 5 USD to 5 USD
+    // Ugly test because it is testing the guts of the implementation
+    // We should always test for the externally visible behavior of the objects themselves
+//    public void testPlusSameCurrencyReturnsMoney() {
+//        Expression sum = Money.dollar((1).plus(Money.dollar(1));
+//        Assert.assertTrue(sum instanceof Money);
+//    }
+
 }
